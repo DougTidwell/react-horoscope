@@ -7,7 +7,7 @@ function App() {
       <div className="App">
         <header className="App-header">
             <p className="main-title">
-                <img src="%PUBLIC_URL%/dougco-logo.png" width="40%" height="40%" alt="DougCo logo"/>
+                <img src="dougco-logo.png" width="40%" height="40%" alt="DougCo logo"/>
                 <br/>
                 Horoscope Service
             </p>
