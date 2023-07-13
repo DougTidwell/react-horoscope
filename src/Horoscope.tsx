@@ -2,12 +2,16 @@ import { useState } from "react";
 
 export default function Horoscope() {
     const [sign, setSign] = useState(null);
-    const [serviceName, setServiceName] = useState(null);
     const [horoscopeText, setHoroscopeText] = useState(null);
+
+    const protocol= process.env.REACT_APP_PROTOCOL || "http";
+    const host = process.env.REACT_APP_HOST || "localhost";
+    const proxyPort = process.env.REACT_APP_PROXY_PORT || "3005";
 
     // @ts-ignore
     function getHoroscope(sign: string) {
-        fetch(`http://localhost:3005/horoscope/${sign}`,
+        console.log(`Vars: ${protocol}, ${host}, ${proxyPort}`);
+        fetch(` ${protocol}://${host}:${proxyPort}/horoscope/${sign}`,
             {
                 method: 'GET',
                 mode : 'cors',
@@ -17,9 +21,7 @@ export default function Horoscope() {
             .then (res => res.json())
             .then (
                 (result) => {
-                    console.log(result.horoscopeText);
                     setHoroscopeText(result.horoscopeText);
-                    setServiceName(result.serviceName);
                     // @ts-ignore
                     setSign(` Today's ${result.serviceName} horoscope for ${sign}: `);
                 },
@@ -33,18 +35,30 @@ export default function Horoscope() {
     return (
         <>
             <p className="Zodiac-signs">
-                <a onClick={() => {getHoroscope("Aries"); }}>♈️</a>&nbsp;
-                <a onClick={() => {getHoroscope("Taurus"); }}>♉️️</a>&nbsp;
-                <a onClick={() => {getHoroscope("Gemini"); }}>♊️️</a>&nbsp;
-                <a onClick={() => {getHoroscope("Cancer"); }}>♋️️</a>&nbsp;
-                <a onClick={() => {getHoroscope("Leo"); }}>♌️</a>&nbsp;
-                <a onClick={() => {getHoroscope("Virgo"); }}>♍️️</a>&nbsp;
-                <a onClick={() => {getHoroscope("Libra"); }}>♎️️</a>&nbsp;
-                <a onClick={() => {getHoroscope("Scorpio"); }}>♏️️</a>&nbsp;
-                <a onClick={() => {getHoroscope("Sagittarius"); }}>♐️️</a>&nbsp;
-                <a onClick={() => {getHoroscope("Capricorn"); }}>♑️</a>&nbsp;
-                <a onClick={() => {getHoroscope("Aquarius"); }}>♒️️</a>&nbsp;
-                <a onClick={() => {getHoroscope("Pisces"); }}>♓️️</a>&nbsp;
+                <button className="horoscope-button" title="Aries"
+                        onClick={() => {getHoroscope("Aries"); }}>♈️</button>
+                <button className="horoscope-button" title="Taurus"
+                        onClick={() => {getHoroscope("Taurus"); }}>♉️️</button>
+                <button className="horoscope-button" title="Gemini"
+                        onClick={() => {getHoroscope("Gemini"); }}>♊️️</button>
+                <button className="horoscope-button" title="Cancer"
+                        onClick={() => {getHoroscope("Cancer"); }}>♋️️</button>
+                <button className="horoscope-button" title="Leo"
+                        onClick={() => {getHoroscope("Leo"); }}>♌️</button>
+                <button className="horoscope-button" title="Virgo"
+                        onClick={() => {getHoroscope("Virgo"); }}>♍️️</button>
+                <button className="horoscope-button" title="Libra"
+                        onClick={() => {getHoroscope("Libra"); }}>♎️️</button>
+                <button className="horoscope-button" title="Scorpio"
+                        onClick={() => {getHoroscope("Scorpio"); }}>♏️️</button>
+                <button className="horoscope-button" title="Sagittarius"
+                        onClick={() => {getHoroscope("Sagittarius"); }}>♐️️</button>
+                <button className="horoscope-button" title="Capricorn"
+                        onClick={() => {getHoroscope("Capricorn"); }}>♑️</button>
+                <button className="horoscope-button" title="Aquarius"
+                        onClick={() => {getHoroscope("Aquarius"); }}>♒️️</button>
+                <button className="horoscope-button" title="Pisces"
+                        onClick={() => {getHoroscope("Pisces"); }}>♓️️</button>
             </p>
 
             <fieldset>

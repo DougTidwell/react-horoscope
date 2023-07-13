@@ -51,6 +51,16 @@ fieldset p {
   margin: 30px;
 }
 
+.horoscope-button {
+  font-size: 60pt;
+  text-align: center;
+  margin: 7px;
+  background-color: transparent;
+  line-height: inherit;
+  border-width: 0;
+  padding: 0;
+}
+
 body {
   background-color: #cccccc;
 }
