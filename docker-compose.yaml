@@ -1,0 +1,68 @@
+version: "3.8"
+
+services:
+  kafkaesque_horoscope:
+    image: dougtidwell/python_horoscope:kafkaesque-0.0.1
+    ports:
+      - 3000
+    networks:
+      - private
+
+  ominous_horoscope:
+    image: dougtidwell/go_horoscope:ominous-0.0.1
+    ports:
+      - 3000
+    networks:
+      - private
+
+  optimistic_horoscope:
+    image: dougtidwell/node_horoscope:optimistic-0.0.1
+    ports:
+      - 3000
+    networks:
+      - private
+
+  planetary_motion_horoscope:
+    image: dougtidwell/node_horoscope:planets_in_motion-0.0.1
+    ports:
+      - 3000
+    networks:
+      - private
+
+  horoscope_proxy:
+    image: dougtidwell/horoscope_proxy:0.0.1
+    ports:
+      - 3005:3005
+    networks:
+      - private
+    depends_on:
+      - kafkaesque_horoscope
+      - ominous_horoscope
+      - optimistic_horoscope
+      - planetary_motion_horoscope
+    environment:
+      - PORT=3005
+      - KAFKAESQUE_HOST=http://kafkaesque_horoscope:3000
+      - OMINOUS_HOST=http://ominous_horoscope:3000
+      - OPTIMISTIC_HOST=http://optimistic_horoscope:3000
+      - PLANETARY_MOTION_HOST=http://planetary_motion_horoscope:3000
+
+  react_horoscope:
+    image: dougtidwell/react_horoscope:0.0.1
+    ports:
+      - 3081:3000
+    networks:
+      - private
+    depends_on:
+      - planetary_motion_horoscope
+      - ominous_horoscope
+      - optimistic_horoscope
+      - kafkaesque_horoscope
+      - horoscope_proxy
+    environment:
+      - REACT_APP_PROTOCOL=http
+      - REACT_APP_HOST=horoscope_proxy
+      - REACT_APP_PORT=3005
+
+networks:
+  private:
