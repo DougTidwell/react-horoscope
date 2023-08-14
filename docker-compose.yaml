@@ -2,35 +2,35 @@ version: "3.8"
 
 services:
   kafkaesque_horoscope:
-    image: dougtidwell/python_horoscope:kafkaesque-0.0.1
+    image: docker.io/dougtidwell/python_horoscope:kafkaesque-0.0.1
     ports:
       - 3000
     networks:
       - private
 
   ominous_horoscope:
-    image: dougtidwell/go_horoscope:ominous-0.0.1
+    image: docker.io/dougtidwell/go_horoscope:ominous-0.0.1
     ports:
       - 3000
     networks:
       - private
 
   optimistic_horoscope:
-    image: dougtidwell/node_horoscope:optimistic-0.0.1
+    image: docker.io/dougtidwell/node_horoscope:optimistic-0.0.1
     ports:
       - 3000
     networks:
       - private
 
   planetary_motion_horoscope:
-    image: dougtidwell/node_horoscope:planets_in_motion-0.0.1
+    image: docker.io/dougtidwell/node_horoscope:planets_in_motion-0.0.1
     ports:
       - 3000
     networks:
       - private
 
   horoscope_proxy:
-    image: dougtidwell/horoscope_proxy:0.0.1
+    image: docker.io/dougtidwell/horoscope_proxy:0.0.1
     ports:
       - 3005:3005
     networks:
@@ -48,7 +48,7 @@ services:
       - PLANETARY_MOTION_HOST=http://planetary_motion_horoscope:3000
 
   react_horoscope:
-    image: dougtidwell/react_horoscope:0.0.1
+    image: docker.io/dougtidwell/react_horoscope:0.0.1
     ports:
       - 3081:3000
     networks:
